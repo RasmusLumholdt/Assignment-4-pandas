@@ -9,7 +9,8 @@ def read_csv(filename="api-pov.csv"):
     newDf = df.drop(columns=['Country Code', 'Indicator Name', 'Indicator Code'])
     print(newDf.shape)
     return newDf
-
+def read_csv_2(filename="api-pov.csv"):
+    return pd.read_csv(filename)
 
 
 def poverty_line_diagram():
@@ -47,6 +48,20 @@ def test(df):
 
     print(df1)
 
+    
+def top_10_poverty_diagram():
+    df = read_csv_2()
+    idArr = []
+    for i in range(10):
+        index = df[["2016"]].idxmax()
+        idArr.append(index.tolist()[0])
+        df = df.drop(index)
+    df = read_csv_2()
+    df = df.ix[idArr]
+
+    
+    df.plot.bar(x="Country Name")
+    
 
 #poverty_line_diagram()
 #read_csv()
