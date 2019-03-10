@@ -1,10 +1,14 @@
 import pandas as pd
 import numpy as np
+#import matplotlib as mpl
 
 
 
 def read_csv(filename="api-pov.csv"):
-    return pd.read_csv(filename)
+    df = pd.read_csv(filename)
+    newDf = df.drop(columns=['Country Code', 'Indicator Name', 'Indicator Code'])
+    print(newDf.shape)
+    return newDf
 
 
 
@@ -27,9 +31,23 @@ def poverty_line_diagram():
         
     #Get each line of the countries
 
-    print(countries_data[0][4:55])
-    countries_data[0][4:55].plot()
+    df = pd.DataFrame(
+        [countries_data[0][4:55], countries_data[1][4:55], countries_data[2][4:55]])
+    print(df)
+
+    df.plot()
+
+    #countries_data[0][4:55]
+    #countries_data[0][4:55].Series.plot()
     
 
+def test(df):
+    df1 = df[df['Country Name'].isin(
+        ['Argentina', "Cote d'Ivoire", 'United States'])]
 
-poverty_line_diagram()
+    print(df1)
+
+
+#poverty_line_diagram()
+#read_csv()
+test(read_csv())
